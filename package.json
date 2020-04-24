@@ -1,15 +1,18 @@
 {
   "name": "timezone-date",
   "version": "1.0.0",
-  "description": "",
-  "keywords": [],
-  "author": {
-    "name": "Beeno Tung",
-    "email": "aabbcc1241@yahoo.com.hk",
-    "url": "https://beeno-tung.surge.sh"
-  },
+  "description": "Enhancement of Date class with better timezone support",
+  "keywords": [
+    "timezone",
+    "date",
+    "time",
+    "tzdate",
+    "convert",
+    "offset"
+  ],
+  "author": "Beeno Tung <aabbcc1241@yahoo.com.hk> (https://beeno-tung.surge.sh)",
   "license": "BSD-2-Clause",
-  "main": "dist/timezone-date.js",
+  "main": "dist/timezone-date.min.js",
   "types": "dist/timezone-date.d.ts",
   "scripts": {
     "test": "npm run rawtest",
@@ -18,6 +21,7 @@
     "postformat": "tslint -p . --fix",
     "prebuild": "npm run clean",
     "build": "tsc -p tsconfig.build.json",
+    "postbuild": "minify dist/timezone-date.js > dist/timezone-date.min.js",
     "pretest": "npm run format && npm run build",
     "rawtest": "ts-node test/index.ts",
     "prepublishOnly": "npm run rawtest && npm run build"
@@ -27,14 +31,10 @@
       "pre-commit": "npm run format"
     }
   },
-  "directories": {
-    "test": "test"
-  },
   "files": [
     "dist"
   ],
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/node": "*",
     "husky": "^4.2.5",
@@ -46,5 +46,13 @@
     "tslint-eslint-rules": "^5.4.0",
     "tslint-etc": "^1.10.1",
     "typescript": "^3.8.3"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/beenotung/timezone-date.git"
+  },
+  "bugs": {
+    "url": "https://github.com/beenotung/timezone-date/issues"
+  },
+  "homepage": "https://github.com/beenotung/timezone-date#readme"
 }
