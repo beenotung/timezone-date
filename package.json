@@ -1,6 +1,6 @@
 {
   "name": "timezone-date.ts",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Enhancement of Date class with better timezone support",
   "keywords": [
     "timezone",
