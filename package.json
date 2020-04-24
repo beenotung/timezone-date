@@ -9,8 +9,8 @@
     "url": "https://beeno-tung.surge.sh"
   },
   "license": "BSD-2-Clause",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/timezone-date.js",
+  "types": "dist/timezone-date.d.ts",
   "scripts": {
     "test": "npm run rawtest",
     "clean": "rimraf dist",
@@ -34,8 +34,6 @@
     "dist"
   ],
   "dependencies": {
-    "@beenotung/tslib": "^16.19.0",
-    "tslib": "^1.11.1"
   },
   "devDependencies": {
     "@types/node": "*",
