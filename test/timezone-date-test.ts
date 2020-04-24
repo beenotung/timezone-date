@@ -11,8 +11,19 @@ function assert(o: { expect: any; actual: any; name: string }) {
 
 const d = TimezoneDate.fromDate(new Date('2020-04-21T10:00:00.000Z'))
 
+d.timezone = 0
+assert({
+  expect: 0,
+  actual: d.getTimezoneOffset(),
+  name: 'initial set timezone',
+})
+
 d.timezone = +8
-assert({ expect: 8 * -60, actual: d.getTimezoneOffset(), name: 'set timezone' })
+assert({
+  expect: 8 * -60,
+  actual: d.getTimezoneOffset(),
+  name: 'change timezone',
+})
 
 d.setTimezoneOffset(6 * -60)
 assert({ expect: 6, actual: d.timezone, name: 'set timezone offset' })
