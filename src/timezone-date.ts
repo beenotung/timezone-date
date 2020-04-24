@@ -20,7 +20,7 @@ export class TimezoneDate implements Date {
   }
 
   toString(): string {
-    return this.toTimezoneOffsetDate().toString()
+    return this.toDate().toString()
   }
 
   toLocaleString(): string
@@ -215,7 +215,7 @@ export class TimezoneDate implements Date {
   }
 
   toDateString(): string {
-    return this.toTimezoneOffsetDate().toDateString()
+    return this.toDate().toDateString()
   }
 
   toISOString(): string {
@@ -255,7 +255,7 @@ export class TimezoneDate implements Date {
   }
 
   toTimeString(): string {
-    return this.toTimezoneOffsetDate().toTimeString()
+    return this.toDate().toTimeString()
   }
 
   toUTCString(): string {
