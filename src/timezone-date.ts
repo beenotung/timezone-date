@@ -29,7 +29,7 @@ export class TimezoneDate implements Date {
     options?: Intl.DateTimeFormatOptions,
   ): string
   toLocaleString(locales?: any, options?: any) {
-    return this.toTimezoneOffsetDate().toLocaleString(locales, options)
+    return this.toDate().toLocaleString(locales, options)
   }
 
   valueOf(): number {
@@ -239,7 +239,7 @@ export class TimezoneDate implements Date {
     locales?: string | string[],
     options?: Intl.DateTimeFormatOptions,
   ): string {
-    return this.toTimezoneOffsetDate().toLocaleDateString(locales, options)
+    return this.toDate().toLocaleDateString(locales, options)
   }
 
   toLocaleTimeString(): string
@@ -251,7 +251,7 @@ export class TimezoneDate implements Date {
     locales?: string | string[],
     options?: Intl.DateTimeFormatOptions,
   ): string {
-    return this.toTimezoneOffsetDate().toLocaleTimeString(locales, options)
+    return this.toDate().toLocaleTimeString(locales, options)
   }
 
   toTimeString(): string {
