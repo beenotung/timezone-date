@@ -1,16 +1,17 @@
-# timezone-date
+# timezone-date.ts
 Enhancement of Date class with better timezone support.
 
-[![npm Package Version](https://img.shields.io/npm/v/timezone-date.svg?maxAge=3600)](https://www.npmjs.com/package/timezone-date)
+[![npm Package Version](https://img.shields.io/npm/v/timezone-date.ts.svg?maxAge=3600)](https://www.npmjs.com/package/timezone-date.ts)
 
 ## Features
 - Compliant to `Date` methods
 - Allow changing timezone anytime
+- Typescript support
 - Tiny code base - 3.8KB minified
 
 ## Example
 ```typescript
-import { TimezoneDate } from 'timezone-date'
+import { TimezoneDate } from 'timezone-date.ts'
 
 const d = TimezoneDate.fromDate(new Date('2020-04-21T10:00:00.000Z'))
 
@@ -30,11 +31,11 @@ d.toLocaleTimeString() // '10:00:00 AM'
 
 ## Installation
 ```bash
-npm i timezone-date
+npm i timezone-date.ts
 ```
 ## Construction
 ```typescript
-import { TimezoneDate } from 'timezone-date'
+import { TimezoneDate } from 'timezone-date.ts'
 
 /* custom timezone */
 new TimezoneDate(Date.now(), {timezone: +8})
