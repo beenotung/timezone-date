@@ -10,6 +10,7 @@ Enhancement of Date class with better timezone support.
 - Tiny code base - 3.8KB minified
 
 ## Example
+Jump between timezones:
 ```typescript
 import { TimezoneDate } from 'timezone-date.ts'
 
@@ -27,6 +28,15 @@ d.setHours(9)
 d.timezone++
 d.getHours() // 10
 d.toLocaleTimeString() // '10:00:00 AM'
+```
+
+Set a specific time (e.g. from UI input)
+```typescript
+let date = new TimezoneDate()
+date.timezone = 8
+date.setFullYear(2020, 11 - 1, 28)
+date.setHours(9, 2, 38)
+console.log(date.toString()) // Sat Nov 28 2020 09:02:38 GMT+0800 (Hong Kong Standard Time)
 ```
 
 ## Installation
