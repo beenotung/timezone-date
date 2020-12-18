@@ -33,7 +33,7 @@ d.toLocaleTimeString() // '10:00:00 AM'
 Set a specific time (e.g. from UI input)
 ```typescript
 let date = new TimezoneDate()
-date.timezone = 8
+date.timezone = +8
 date.setFullYear(2020, 11 - 1, 28)
 date.setHours(9, 2, 38)
 console.log(date.toString()) // Sat Nov 28 2020 09:02:38 GMT+0800 (Hong Kong Standard Time)
