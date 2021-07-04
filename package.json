@@ -15,6 +15,7 @@
   "main": "dist/cjs/timezone-date.min.js",
   "types": "dist/cjs/timezone-date.d.ts",
   "module": "dist/esm/timezone-date.js",
+  "sideEffect": false,
   "scripts": {
     "clean": "rimraf dist",
     "format": "run-s prettier tslint",
