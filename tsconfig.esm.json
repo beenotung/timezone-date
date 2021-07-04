@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "module": "es2015",
+        "target": "es2015",
+        "strict": true,
+        "outDir": "dist/esm",
+        "esModuleInterop": true,
+        "moduleResolution": "node",
+        "lib": [
+            "dom"
+        ]
+    },
+    "include": [
+        "src",
+    ],
+    "exclude": [
+        "dist"
+    ]
+}

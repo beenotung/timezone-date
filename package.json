@@ -12,19 +12,22 @@
   ],
   "author": "Beeno Tung <aabbcc1241@yahoo.com.hk> (https://beeno-tung.surge.sh)",
   "license": "BSD-2-Clause",
-  "main": "dist/timezone-date.min.js",
-  "types": "dist/timezone-date.d.ts",
+  "main": "dist/cjs/timezone-date.min.js",
+  "types": "dist/cjs/timezone-date.d.ts",
+  "module": "dist/esm/timezone-date.js",
   "scripts": {
-    "test": "npm run rawtest",
     "clean": "rimraf dist",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "postformat": "tslint -p . --fix",
-    "prebuild": "npm run clean",
-    "build": "tsc -p tsconfig.build.json",
-    "postbuild": "minify dist/timezone-date.js > dist/timezone-date.min.js",
-    "pretest": "npm run format && npm run build",
-    "rawtest": "ts-node test/index.ts",
-    "prepublishOnly": "npm run rawtest && npm run build"
+    "format": "run-s prettier tslint",
+    "prettier": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "tslint": "tslint -p . --fix",
+    "build": "run-s clean tsc minify",
+    "tsc": "run-p tsc:*",
+    "tsc:cjs": "tsc -p tsconfig.cjs.json",
+    "tsc:esm": "tsc -p tsconfig.esm.json",
+    "minify": "minify dist/cjs/timezone-date.js > dist/cjs/timezone-date.min.js",
+    "test": "run-s format build test:ts",
+    "test:ts": "ts-node test/index.ts",
+    "prepublishOnly": "run-s test:ts build"
   },
   "husky": {
     "hook": {
@@ -34,11 +37,11 @@
   "files": [
     "dist"
   ],
-  "dependencies": {},
   "devDependencies": {
     "@types/node": "*",
     "husky": "^4.2.5",
     "minify": "^6.0.1",
+    "npm-run-all": "^4.1.5",
     "prettier": "^2.0.5",
     "rimraf": "^3.0.2",
     "ts-node": "^8.9.0",
