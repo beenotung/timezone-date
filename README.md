@@ -2,9 +2,9 @@
 
 Enhancement of Date class with better timezone support.
 
-[![npm Package Version](https://img.shields.io/npm/v/timezone-date.ts)](https://www.npmjs.com/package/timezone-date)
-[![npm Package Version](https://img.shields.io/bundlephobia/min/timezone-date.ts)](https://bundlephobia.com/package/timezone-date)
-[![npm Package Version](https://img.shields.io/bundlephobia/minzip/timezone-date.ts)](https://bundlephobia.com/package/timezone-date)
+[![npm Package Version](https://img.shields.io/npm/v/timezone-date.ts)](https://www.npmjs.com/package/timezone-date.ts)
+[![npm Package Version](https://img.shields.io/bundlephobia/min/timezone-date.ts)](https://bundlephobia.com/package/timezone-date.ts)
+[![npm Package Version](https://img.shields.io/bundlephobia/minzip/timezone-date.ts)](https://bundlephobia.com/package/timezone-date.ts)
 
 ## Features
 - Compliant to `Date` methods
