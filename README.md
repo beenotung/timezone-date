@@ -1,13 +1,16 @@
 # timezone-date.ts
+
 Enhancement of Date class with better timezone support.
 
-[![npm Package Version](https://img.shields.io/npm/v/timezone-date.ts.svg?maxAge=3600)](https://www.npmjs.com/package/timezone-date.ts)
+[![npm Package Version](https://img.shields.io/npm/v/timezone-date.ts)](https://www.npmjs.com/package/timezone-date)
+[![npm Package Version](https://img.shields.io/bundlephobia/min/timezone-date.ts)](https://bundlephobia.com/package/timezone-date)
+[![npm Package Version](https://img.shields.io/bundlephobia/minzip/timezone-date.ts)](https://bundlephobia.com/package/timezone-date)
 
 ## Features
 - Compliant to `Date` methods
 - Allow changing timezone anytime
 - Typescript support
-- Tiny code base - 3.8KB minified
+- Tiny code base (below 1KB minizipped)
 
 ## Example
 Jump between timezones:
