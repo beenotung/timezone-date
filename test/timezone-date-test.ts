@@ -39,4 +39,48 @@ d.setHours(9)
 d.timezone = +9
 assert({ expect: 10, actual: d.getHours(), name: 'time zone shift on hours' })
 
+d.timezone = +8
+d.setHours(9, 0, 0, 0)
+assert({
+  expect: '9:00:00 AM',
+  actual: d.toLocaleTimeString('en-US'),
+  name: 'get original locale time string',
+})
+d.timezone = +9
+assert({
+  expect: '10:00:00 AM',
+  actual: d.toLocaleTimeString('en-US'),
+  name: 'time zone shift locale time string',
+})
+
+d.timezone = +8
+d.setFullYear(2020, 4 - 1, 21)
+d.setHours(6, 0, 0)
+assert({
+  expect: '4/21/2020',
+  actual: d.toLocaleDateString('en-US'),
+  name: 'get original locale date string',
+})
+d.timezone = 0
+assert({
+  expect: '4/20/2020',
+  actual: d.toLocaleDateString('en-US'),
+  name: 'time zone shift locale date string',
+})
+
+d.timezone = +8
+d.setFullYear(2020, 4 - 1, 21)
+d.setHours(6, 0, 0)
+assert({
+  expect: '4/21/2020, 6:00:00 AM',
+  actual: d.toLocaleString('en-US'),
+  name: 'get original locale string',
+})
+d.timezone = 0
+assert({
+  expect: '4/20/2020, 10:00:00 PM',
+  actual: d.toLocaleString('en-US'),
+  name: 'time zone shift locale string',
+})
+
 console.log('done.')
