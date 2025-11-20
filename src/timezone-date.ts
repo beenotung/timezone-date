@@ -7,14 +7,72 @@ function fromDateTimezoneOffset(offset: number) {
   return -offset / 60
 }
 
+// Get timezone offset in hours for a given IANA timezone identifier at a specific time
+export function getTimezoneOffsetForIANA(
+  timezone: string,
+  time: number,
+): number {
+  // Create a date object for the given UTC time
+  const utcDate = new Date(time)
+
+  // Format the same UTC time in the target timezone to get the local time representation
+  const tzFormatter = new Intl.DateTimeFormat('en-US', {
+    timeZone: timezone,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false,
+  })
+
+  const tzParts = tzFormatter.formatToParts(utcDate)
+  const parts = Object.fromEntries(
+    tzParts.map(p => [p.type, parseInt(p.value || '0', 10)]),
+  )
+
+  // Create a date string in ISO format for the timezone time
+  // We'll use this to create a date that represents the same moment in UTC
+  const y = parts.year
+  const m = String(parts.month).padStart(2, '0')
+  const d = String(parts.day).padStart(2, '0')
+  const H = String(parts.hour).padStart(2, '0')
+  const M = String(parts.minute).padStart(2, '0')
+  const S = String(parts.second).padStart(2, '0')
+  const tzDateString = `${y}-${m}-${d}T${H}:${M}:${S}Z`
+
+  // Parse this as UTC to get what UTC time would show the same numbers
+  // The difference between the original UTC time and this tells us the offset
+  const tzAsUtc = new Date(tzDateString).getTime()
+
+  // The offset is: UTC-4 means we need to subtract 4 hours from UTC to get local time
+  // offset = tzAsUtc - time (in hours)
+  // This gives negative values for timezones behind UTC (like UTC-4 = -4)
+  // and positive values for timezones ahead of UTC (like UTC+8 = +8)
+  const offsetMs = tzAsUtc - time
+  return offsetMs / HOUR
+}
+
+// Get current timezone offset (in hours) - supports both number and IANA timezone
+function getCurrentTimezoneOffset(
+  timezone: number | string,
+  time: number,
+): number {
+  if (typeof timezone === 'string') {
+    return getTimezoneOffsetForIANA(timezone, time)
+  }
+  return timezone
+}
+
 export class TimezoneDate implements Date {
   time: number
-  timezone: number // in hour
-  constructor(time: number = Date.now(), o?: { timezone?: number }) {
+  timezone: number | string // in hour or IANA timezone identifier (e.g., "America/New_York")
+  constructor(time: number = Date.now(), o?: { timezone?: number | string }) {
     this.time = time
     const t = o?.timezone
     this.timezone =
-      typeof t === 'number'
+      t !== undefined
         ? t
         : fromDateTimezoneOffset(new Date().getTimezoneOffset())
   }
@@ -29,6 +87,13 @@ export class TimezoneDate implements Date {
     options?: Intl.DateTimeFormatOptions,
   ): string
   toLocaleString(locales?: any, options?: any) {
+    // If timezone is an IANA identifier and no timeZone option is provided, use it
+    if (typeof this.timezone === 'string' && !options?.timeZone) {
+      return this.toDate().toLocaleString(locales, {
+        ...options,
+        timeZone: this.timezone,
+      })
+    }
     return this.toTimezoneOffsetDate().toLocaleString(locales, options)
   }
 
@@ -47,7 +112,8 @@ export class TimezoneDate implements Date {
   // for formatting
   toTimezoneOffsetDate(): Date {
     let t = this.time
-    t += this.timezone * HOUR
+    const offset = getCurrentTimezoneOffset(this.timezone, this.time)
+    t += offset * HOUR
     t += new Date().getTimezoneOffset() * MINUTE
     return new Date(t)
   }
@@ -106,7 +172,8 @@ export class TimezoneDate implements Date {
   }
 
   getTimezoneOffset(): number {
-    return this.timezone * -60
+    const offset = getCurrentTimezoneOffset(this.timezone, this.time)
+    return offset * -60
   }
 
   setTimezoneOffset(offset: number) {
@@ -239,6 +306,13 @@ export class TimezoneDate implements Date {
     locales?: string | string[],
     options?: Intl.DateTimeFormatOptions,
   ): string {
+    // If timezone is an IANA identifier and no timeZone option is provided, use it
+    if (typeof this.timezone === 'string' && !options?.timeZone) {
+      return this.toDate().toLocaleDateString(locales, {
+        ...options,
+        timeZone: this.timezone,
+      })
+    }
     return this.toTimezoneOffsetDate().toLocaleDateString(locales, options)
   }
 
@@ -251,6 +325,13 @@ export class TimezoneDate implements Date {
     locales?: string | string[],
     options?: Intl.DateTimeFormatOptions,
   ): string {
+    // If timezone is an IANA identifier and no timeZone option is provided, use it
+    if (typeof this.timezone === 'string' && !options?.timeZone) {
+      return this.toDate().toLocaleTimeString(locales, {
+        ...options,
+        timeZone: this.timezone,
+      })
+    }
     return this.toTimezoneOffsetDate().toLocaleTimeString(locales, options)
   }
 
