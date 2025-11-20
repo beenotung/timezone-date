@@ -1,13 +1,5 @@
 import { TimezoneDate } from '../src/timezone-date'
-
-function assert(o: { expect: any; actual: any; name: string }) {
-  if (o.expect !== o.actual) {
-    console.error('Fail:', o)
-    process.exit(1)
-  } else {
-    console.log('Pass:', o.name)
-  }
-}
+import { assert } from './utils'
 
 const d = TimezoneDate.fromDate(new Date('2020-04-21T10:00:00.000Z'))
 
