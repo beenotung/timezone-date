@@ -7,7 +7,10 @@ function fromDateTimezoneOffset(offset: number) {
   return -offset / 60
 }
 
-// Get timezone offset in hours for a given IANA timezone identifier at a specific time
+/**
+ * Get timezone offset in hours for a given IANA timezone identifier at a specific time.
+ * The time is needed, because the timezone offset is different in summer and winter for some timezones.
+ * */
 export function getTimezoneOffsetForIANA(
   timezone: string,
   time: number,
